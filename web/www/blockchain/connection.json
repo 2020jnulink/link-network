@@ -30,8 +30,12 @@
             }
         },
         "orderers": {
-            "orderer0:7050": {
+            "orderer0": {
                 "url": "grpcs://localhost:7050",
+                "grpcOptions":{
+                    "ssl-target-name-override":"orderer0",
+                    "grpc-max-send-message-length": -1
+                },
                 "tlsCACerts": {
                     "pem": "../../cli/peers/ordererOrganizations/orderer-org/msp/tlscacerts/tlsca.orderer-org-cert.pem"       }
             }
@@ -43,7 +47,8 @@
                     "pem": "../../cli/peers/peerOrganizations/insurance-org/msp/tlscacerts/tlsca.insurance-org-cert.pem"
                 },
                 "grpcOptions": {
-                    "ssl-target-name-override": "insurance-peer"
+                    "ssl-target-name-override": "insurance-peer",
+                    "hostnameOverride": "insurance-peer"
                 }
             },
             "shop-peer": {
@@ -52,16 +57,41 @@
                     "pem": "../../cli/peers/peerOrganizations/shop-org/msp/tlscacerts/tlsca.shop-org-cert.pem"
                 },
                 "grpcOptions": {
-                    "ssl-target-name-override": "shop-peer"
+                    "ssl-target-name-override": "shop-peer",
+                    "hostnameOverride": "shop-peer"
                 }
             }
         },
         "certificateAuthorities": {
             "insurance-ca": {
                 "url": "http://localhost:7054",
-                "caName": "ca",
+                "caName": "insurance-ca",
                 "tlsCACerts": {
                     "pem":  "../../cli/peers/peerOrganizations/insurance-org/ca/ca.insurance-org-cert.pem"
+                },
+                "registrar":{
+                    "enrollId":  "insuranceApp-admin",
+                    "enrollSecret": "insuranceApp-adminpw",
+                    "caName": "ca"
+                },
+                "httpOptions": {
+                    "verify": false
+                }
+            },
+
+            "shop-ca": {
+                "url": "http://localhost:8054",
+                "caName": "shop-ca",
+                "tlsCACerts": {
+                    "pem":  "../../cli/peers/peerOrganizations/shop-org/ca/ca.shop-org-cert.pem"
+                },
+                "registrar":{
+                    "enrollId":  "insuranceApp-admin",
+                    "enrollSecret": "insuranceApp-adminpw",
+                    "caName": "ca"
+                },
+                "httpOptions": {
+                    "verify": false
                 }
             }
         }

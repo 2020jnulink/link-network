@@ -1,0 +1,68 @@
+{
+    "name": "mychannel1",
+    "version": "1.0.0",
+    "client": {
+        "organization":"insurance",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+        "organizations": {
+            "insurance": {
+                "mspid": "insurance",
+                "peers": [
+                    "insurance-org"
+                ],
+                "certificateAuthorities": [
+                    "ca-base"
+                ]
+            },
+            "shopmsp": {
+                "mspid": "shopmsp",
+                "peers": [
+                    "shop-org"
+                ]
+            }
+        },
+        "orderers": {
+            "orderer0:7050": {
+                "url": "grpcs://localhost:7050",
+                "tlsCACerts": {
+                    "pem": "../../cli/peers/ordererOrganizations/orderer-org/msp/tlscacerts/tlsca.orderer-org-cert.pem"       }
+            }
+        },
+        "peers": {
+            "insurance-peer": {
+                "url": "grpcs://localhost:7051",
+                "tlsCACerts": {
+                    "pem": "../../cli/peers/peerOrganizations/insurance-org/msp/tlscacerts/tlsca.insurance-org-cert.pem"
+                },
+                "grpcOptions": {
+                    "ssl-target-name-override": "insurance-peer"
+                }
+            },
+            "shop-peer": {
+                "url": "grpcs://localhost:7051",
+                "tlsCACerts": {
+                    "pem": "../../cli/peers/peerOrganizations/shop-org/msp/tlscacerts/tlsca.shop-org-cert.pem"
+                },
+                "grpcOptions": {
+                    "ssl-target-name-override": "shop-peer"
+                }
+            }
+        },
+        "certificateAuthorities": {
+            "insurance-ca": {
+                "url": "http://localhost:7054",
+                "caName": "ca",
+                "tlsCACerts": {
+                    "pem":  "../../cli/peers/peerOrganizations/insurance-org/ca/ca.insurance-org-cert.pem"
+                }
+            }
+        }
+      }
