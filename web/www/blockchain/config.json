@@ -1,0 +1,9 @@
+{
+  "connection_file": "connection.json",
+  "appAdmin": "insuranceApp-admin",
+  "appAdminSecret": "insuranceApp-adminpw",
+  "orgMSPID": "insurancemsp",
+  "caName": "http://localhost:7054",
+  "userName": "insuranceUser",
+  "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
+}
