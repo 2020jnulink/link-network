@@ -19,14 +19,29 @@
                     "insurance-org"
                 ],
                 "certificateAuthorities": [
-                    "ca-base"
-                ]
+                    "insurance-ca"
+                ],
+                "adminPrivateKey": {
+                    "path":"../../../cli/peers/peerOrganizations/insurance-org/users/Admin@insurance-org/msp/keystore/0c5c2623a55126f32f9cfc718b11225073fc5275b1f399e011e3d80d9901d38a_sk"
+                },
+                "signedCert":{
+                    "path":"../../../cli/peers/peerOrganizations/insurance-org/users/Admin@insurance-org/msp/signcerts/Admin@insurance-org-cert.pem"
+                }
             },
             "shopmsp": {
                 "mspid": "shopmsp",
                 "peers": [
                     "shop-org"
-                ]
+                ],
+                "certificateAuthorities": [
+                    "shop-ca"
+                ],
+                "adminPrivateKey": {
+                    "path":"../../../cli/peers/peerOrganizations/shop-org/users/Admin@shop-org/msp/keystore/3284f663fa1e24f76b8f554579d22a35aab5ddbda6011397684cb65f3d49f492_sk"
+                },
+                "signedCert":{
+                    "path":"../../../cli/peers/peerOrganizations/shop-org/users/Admin@shop-org/msp/signcerts/Admin@shop-org-cert.pem"
+                }
             }
         },
         "orderers": {
@@ -37,28 +52,27 @@
                     "grpc-max-send-message-length": -1
                 },
                 "tlsCACerts": {
-                    "pem": "../../cli/peers/ordererOrganizations/orderer-org/msp/tlscacerts/tlsca.orderer-org-cert.pem"       }
+                    "path": "../../../cli/peers/ordererOrganizations/orderer-org/msp/tlscacerts/tlsca.orderer-org-cert.pem"       }
             }
         },
         "peers": {
             "insurance-peer": {
                 "url": "grpcs://localhost:7051",
                 "tlsCACerts": {
-                    "pem": "../../cli/peers/peerOrganizations/insurance-org/msp/tlscacerts/tlsca.insurance-org-cert.pem"
+                    "path": "../../../cli/peers/peerOrganizations/insurance-org/msp/tlscacerts/tlsca.insurance-org-cert.pem"
                 },
                 "grpcOptions": {
-                    "ssl-target-name-override": "insurance-peer",
-                    "hostnameOverride": "insurance-peer"
+                    "ssl-target-name-override": "insurance-peer"
+
                 }
             },
             "shop-peer": {
                 "url": "grpcs://localhost:7051",
                 "tlsCACerts": {
-                    "pem": "../../cli/peers/peerOrganizations/shop-org/msp/tlscacerts/tlsca.shop-org-cert.pem"
+                    "path": "../../../cli/peers/peerOrganizations/shop-org/msp/tlscacerts/tlsca.shop-org-cert.pem"
                 },
                 "grpcOptions": {
-                    "ssl-target-name-override": "shop-peer",
-                    "hostnameOverride": "shop-peer"
+                    "ssl-target-name-override": "shop-peer"
                 }
             }
         },
@@ -67,7 +81,7 @@
                 "url": "http://localhost:7054",
                 "caName": "insurance-ca",
                 "tlsCACerts": {
-                    "pem":  "../../cli/peers/peerOrganizations/insurance-org/ca/ca.insurance-org-cert.pem"
+                    "path":  "../../../cli/peers/peerOrganizations/insurance-org/ca/ca.insurance-org-cert.pem"
                 },
                 "registrar":{
                     "enrollId":  "insuranceApp-admin",
@@ -83,16 +97,13 @@
                 "url": "http://localhost:8054",
                 "caName": "shop-ca",
                 "tlsCACerts": {
-                    "pem":  "../../cli/peers/peerOrganizations/shop-org/ca/ca.shop-org-cert.pem"
-                },
-                "registrar":{
-                    "enrollId":  "insuranceApp-admin",
-                    "enrollSecret": "insuranceApp-adminpw",
-                    "caName": "ca"
+                    "path":  "../../../cli/peers/peerOrganizations/shop-org/ca/ca.shop-org-cert.pem"
                 },
                 "httpOptions": {
                     "verify": false
                 }
             }
         }
-      }
+    }
+        
+      

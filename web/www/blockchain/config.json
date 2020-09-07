@@ -5,5 +5,5 @@
   "orgMSPID": "insurancemsp",
   "caName": "http://localhost:7054",
   "userName": "insuranceUser",
-  "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
+  "gatewayDiscovery": { "enabled": true, "asLocalhost": true }
 }

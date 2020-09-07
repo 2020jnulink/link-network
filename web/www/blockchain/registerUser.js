@@ -52,9 +52,10 @@ async function main() {
 
         // Create a new gateway for connecting to our peer node.
         //피어 노드와 연결하기 위한 게이트웨이를 만든다.
+        console.log("ok");
         const gateway = new Gateway();
         await gateway.connect(ccp, { wallet, identity: appAdmin, discovery: gatewayDiscovery });
-
+        console.log("ok");
         // Get the CA client object from the gateway for interacting with the CA.
         const ca = gateway.getClient().getCertificateAuthority();
         const adminIdentity = gateway.getCurrentIdentity();

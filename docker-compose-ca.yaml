@@ -1,0 +1,35 @@
+
+version: '2'
+
+services:
+  insurance-ca:
+    container_name: insurance-ca
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=insurance-ca
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.insurance-org-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/ec9084a27e3474d349a29db38808f091f4d8c1231ccc1da8df879387eb8c568e_sk
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b insuranceApp-admin:insuranceApp-adminpw -d'
+    volumes:
+      - ./cli/peers/peerOrganizations/insurance-org/ca/:/etc/hyperledger/fabric-ca-server-config
+    
+
+  shop-ca:
+    container_name: shop-ca
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=shop-ca
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.shop-org-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/2fc9611351533e64859ef5c118f4b1253a370ea4c975e1ac4082522832b17e45_sk
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    
+    volumes:  
+      - ./cli/peers/peerOrganizations/shop-org/ca/:/etc/hyperledger/fabric-ca-server-config 
+
+    

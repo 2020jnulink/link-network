@@ -1,23 +1,23 @@
 version: '2'
 
 services:
-  insurance-ca:
-    container_name: insurance-ca
-    extends:
-      file: ./ca-base.yaml
-      service: ca-base
-    image: insurance-ca
-    ports:
-    - 7054:7054
+  # insurance-ca:
+  #   container_name: insurance-ca
+  #   extends:
+  #     file: ./ca-base.yaml
+  #     service: ca-base
+  #   image: insurance-ca
+  #   ports:
+  #   - 7054:7054
 
-  shop-ca:
-    container_name: shop-ca
-    extends:
-      file: ./ca-base.yaml
-      service: ca-base
-    image: shop-ca
-    ports:
-    - 8054:7054
+  # shop-ca:
+  #   container_name: shop-ca
+  #   extends:
+  #     file: ./ca-base-shop.yaml
+  #     service: ca-base
+  #   image: shop-ca
+  #   ports:
+  #   - 8054:7054
 
 #  repairshop-ca:
 #    container_name: repairshop-ca
@@ -130,22 +130,22 @@ services:
 #    - shop-peer
 #    - repairshop-peer
 
-  web:
-    container_name: web
-    image: web
-    environment:
-    - PORT=3000
-    - DOCKER_SOCKET_PATH=/host/var/run/docker.sock
-    - DOCKER_CCENV_IMAGE=hyperledger/fabric-ccenv:latest
-    ports:
-    - 3000:3000
-    volumes:
-    - /var/run/:/host/var/run/
-    depends_on:
-    - orderer0
-    - insurance-ca
-    - insurance-peer
-    - shop-ca
-    - shop-peer
+  # web:
+  #   container_name: web
+  #   image: web
+  #   environment:
+  #   - PORT=3000
+  #   - DOCKER_SOCKET_PATH=/host/var/run/docker.sock
+  #   - DOCKER_CCENV_IMAGE=hyperledger/fabric-ccenv:latest
+  #   ports:
+  #   - 3000:3000
+  #   volumes:
+  #   - /var/run/:/host/var/run/
+  #   depends_on:
+  #   - orderer0
+  #   - insurance-ca
+  #   - insurance-peer
+  #   - shop-ca
+  #   - shop-peer
 #    - repairshop-ca
 #    - repairshop-peer

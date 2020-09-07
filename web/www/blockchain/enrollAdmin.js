@@ -24,8 +24,7 @@ const ccpPath = path.join(process.cwd(), './connection.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
-
-
+console.log(ccp.certificateAuthorities['insurance-ca']);
   
 
 async function main() {
@@ -34,16 +33,20 @@ async function main() {
         // Create a new CA client for interacting with the CA.
 
         // const caURL = 'https://124b79efa8f544fc940408394edac7b5-ca6365f4.horea-blockchain-32x32xp.us-south.containers.appdomain.cloud:7054';
-        const caURL = caName;
-        const ca = new FabricCAServices(caURL);
 
+
+        const caInfo = ccp.certificateAuthorities['insurance-ca'];
+
+        const caTLSCACerts = caInfo.tlsCACerts.pem;
+        const ca = new FabricCAServices(caInfo.url, {trustedRoots:caTLSCACerts, verify:false},caInfo.caName);
+        console.log("ok");
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = new FileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the admin user.
-       
+        console.log("ok");
         const adminExists = await wallet.exists(appAdmin);
         if (adminExists) {
             console.log('An identity for the admin user "admin" already exists in the wallet');
@@ -51,6 +54,7 @@ async function main() {
         }
         console.log("ok");
         // Enroll the admin user, and import the new identity into the wallet.
+        
         const enrollment = await ca.enroll({ enrollmentID: appAdmin, enrollmentSecret: appAdminSecret });
         console.log("ok");
         const identity = X509WalletMixin.createIdentity(orgMSPID, enrollment.certificate, enrollment.key.toBytes());
