@@ -9,6 +9,9 @@
 body {
   border-right: 1px solid #d3f1f8;
 }
+input {
+  font-size: 30px;
+}
 
 .header {
   width: 1200px;

@@ -18,11 +18,26 @@
 .payment_main__var {
   margin-top: 50px;
   margin-left: 20px;
-  font-size: 30px; 
+  font-size: 30px;
 }
 .payment_var__var {
   margin-top: 30px;
-  margin-bottom: 40px;
+}
+
+.payment_main__input {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-top: 75px;
+}
+.payment_input__product,
+.payment_input__insurance,
+.payment_input__total,
+.payment_input__number,
+.payment_input__password,
+.payment_input__validity {
+  height: 50px;
+  margin-bottom: 15px;
 }
 
 .payment_complete {

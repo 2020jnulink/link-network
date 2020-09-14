@@ -4,7 +4,29 @@ import Navigation_var from "./Navigation_var";
 import "./InsuranceJoin.css";
 
 class InsuranceJoin extends React.Component {
+  state = {
+    join_insurance: "",
+    join_name: "",
+    join_address: "",
+    join_phone: "",
+    join_period: "",
+    join_price: "",
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.targetname]: e.target.value,
+    });
+    console.log(this.state);
+  };
   render() {
+    const {
+      join_insurance,
+      join_name,
+      join_address,
+      join_phone,
+      join_period,
+      join_price,
+    } = this.state;
     return (
       <div className="frame">
         <body>
@@ -34,12 +56,30 @@ class InsuranceJoin extends React.Component {
                 <div className="join_var__var">:</div>
               </div>
               <div className="join_main__input">
-                <div className="join_input__insurance" />
-                <div className="join_input__name" />
-                <div className="join_input__address" />
-                <div className="join_input__phone" />
-                <div className="join_input__period" />
-                <div className="join_input__price" />
+                <input
+                  className="join_input__insurance"
+                  value={this.state.join_insurance}
+                />
+                <input
+                  className="join_input__name"
+                  value={this.state.join_name}
+                />
+                <input
+                  className="join_input__address"
+                  value={this.state.join_address}
+                />
+                <input
+                  className="join_input__phone"
+                  value={this.state.join_phone}
+                />
+                <input
+                  className="join_input__period"
+                  value={this.state.join_period}
+                />
+                <input
+                  className="join_input__price"
+                  value={this.state.join_price}
+                />
               </div>
             </div>
             <div className="join_complete">

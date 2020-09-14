@@ -24,6 +24,22 @@
   margin-top: 30px;
 }
 
+.myinform_main__input {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-top: 75px;
+}
+.myinform_input__name,
+.myinform_input__id,
+.myinform_input__password,
+.myinform_input__resident,
+.myinform_input__address,
+.myinform_input__phone {
+  height: 50px;
+  margin-bottom: 15px;
+}
+
 .myinform_complete {
   margin-top: 150px;
   margin-right: 50px;

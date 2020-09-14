@@ -3,33 +3,49 @@ import { Link } from "react-router-dom";
 import "./Navigation_var.css";
 
 class Navigation_var extends Component {
+  state = {
+    search: "",
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.targetname]: e.target.value,
+    });
+    console.log(this.state);
+  };
   render() {
+    const { search } = this.state;
     return (
       <div className="navigation">
         <div className="link">
           <Link className="nav_signup" to="/signup">
-            Sign Up
-          </Link>
+            Sign Up{" "}
+          </Link>{" "}
           <Link className="nav_login" to="/login">
-            Log In
-          </Link>
+            Log In{" "}
+          </Link>{" "}
           <Link className="nav_mypage" to="/mypage">
-            My Page
-          </Link>
+            My Page{" "}
+          </Link>{" "}
           <Link className="nav_home" to="/">
-            Home
-          </Link>
+            Home{" "}
+          </Link>{" "}
           <Link className="nav_shop" to="/shop">
-            SHOP
-          </Link>
+            SHOP{" "}
+          </Link>{" "}
           <Link className="nav_insurance" to="/insurance">
-            INSURANCE
-          </Link>
-        </div>
+            INSURANCE{" "}
+          </Link>{" "}
+        </div>{" "}
         <div className="nav_search">
-          <input type="Goods Name" className="search_input" />
-          <div className="search_text">Search</div>
-        </div>
+          <input
+            className="search_input"
+            value={this.state.search}
+            onChange={this.handleChange}
+            type="text"
+            name="search"
+          />
+          <div className="search_text"> Search </div>{" "}
+        </div>{" "}
       </div>
     );
   }

@@ -4,7 +4,29 @@ import Navigation_var from "./Navigation_var";
 import "./MyInform.css";
 
 class MyInform extends React.Component {
+  state = {
+    mypage_name: "",
+    mypage_id: "",
+    mypage_password: "",
+    mypage_resident: "",
+    mypage_address: "",
+    mypage_phone: "",
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.targetname]: e.target.value,
+    });
+    console.log(this.state);
+  };
   render() {
+    const {
+      mypage_name,
+      mypage_id,
+      mypage_password,
+      mypage_resident,
+      mypage_address,
+      mypage_phone,
+    } = this.state;
     return (
       <div className="frame">
         <body>
@@ -36,12 +58,30 @@ class MyInform extends React.Component {
                 <div className="myinform_var__var">:</div>
               </div>
               <div className="myinform_main__input">
-                <div className="myinform_input__name" />
-                <div className="myinform_input__id" />
-                <div className="myinform_input__password" />
-                <div className="myinform_input__resident" />
-                <div className="myinform_input__address" />
-                <div className="myinform_input__phone" />
+                <input
+                  className="myinform_input__name"
+                  value={this.state.mypage_name}
+                />
+                <input
+                  className="myinform_input__id"
+                  value={this.state.mypage_id}
+                />
+                <input
+                  className="myinform_input__password"
+                  value={this.state.mypage_password}
+                />
+                <input
+                  className="myinform_input__resident"
+                  value={this.state.mypage_resident}
+                />
+                <input
+                  className="myinform_input__address"
+                  value={this.state.mypage_address}
+                />
+                <input
+                  className="myinform_input__phone"
+                  value={this.state.mypage_phone}
+                />
               </div>
             </div>
             <div className="myinform_complete">

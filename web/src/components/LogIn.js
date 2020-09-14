@@ -4,7 +4,18 @@ import Navigation_var from "./Navigation_var";
 import "./LogIn.css";
 
 class LogIn extends React.Component {
+  state = {
+    login_id: "",
+    login_password: "",
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.targetname]: e.target.value,
+    });
+    console.log(this.state);
+  };
   render() {
+    const { login_id, login_password } = this.state;
     return (
       <div className="frame">
         <body>
@@ -26,8 +37,16 @@ class LogIn extends React.Component {
                 <div className="login_var__var">:</div>
               </div>
               <div className="login_main__input">
-                <div className="login_input__id" />
-                <div className="login_input__password" />
+                <input
+                  className="login_input__id"
+                  value={this.state.login_id}
+                  onChange={this.handleChange}
+                />
+                <input
+                  className="login_input__password"
+                  value={this.state.login_password}
+                  onChange={this.handleChange}
+                />
               </div>
             </div>
             <div className="login_btns">

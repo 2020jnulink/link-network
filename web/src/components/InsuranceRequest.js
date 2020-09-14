@@ -4,7 +4,19 @@ import Navigation_var from "./Navigation_var";
 import "./InsuranceRequest.css";
 
 class InsuranceRequest extends React.Component {
+  state = {
+    request_type: "",
+    request_date: "",
+    request_description: "",
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.targetname]: e.target.value,
+    });
+    console.log(this.state);
+  };
   render() {
+    const { request_type, request_date, request_description } = this.state;
     return (
       <div className="frame">
         <body>
@@ -28,9 +40,18 @@ class InsuranceRequest extends React.Component {
                 <div className="request_var__var">:</div>
               </div>
               <div className="request_main__input">
-                <div className="request_input__type" />
-                <div className="request_input__date" />
-                <div className="request_input__description" />
+                <input
+                  className="request_input__type"
+                  value={this.state.request_type}
+                />
+                <input
+                  className="request_input__date"
+                  value={this.state.request_date}
+                />
+                <input
+                  className="request_input__description"
+                  value={this.state.request_description}
+                />
               </div>
             </div>
             <div className="request_complete">

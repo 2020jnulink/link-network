@@ -4,7 +4,17 @@ import Navigation_var from "./Navigation_var";
 import "./PasswordCheck.css";
 
 class PasswordCheck extends React.Component {
+  state = {
+    passwordcheck: "",
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.targetname]: e.target.value,
+    });
+    console.log(this.state);
+  };
   render() {
+    const { passwordcheck } = this.state;
     return (
       <div className="frame">
         <body>

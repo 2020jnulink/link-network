@@ -1,41 +1,41 @@
 version: '2'
 
+networks:
+  hyperlink:
+
 services:
-  # insurance-ca:
-  #   container_name: insurance-ca
-  #   extends:
-  #     file: ./ca-base.yaml
-  #     service: ca-base
-  #   image: insurance-ca
-  #   ports:
-  #   - 7054:7054
+  insurance-ca:
+    container_name: insurance-ca
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=insurance-ca
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/key.pem
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b insuranceApp-admin:insuranceApp-adminpw -d'
+    volumes:
+      - ./insuranceCA/ca/:/etc/hyperledger/fabric-ca-server-config
+    networks:
+      - hyperlink
 
-  # shop-ca:
-  #   container_name: shop-ca
-  #   extends:
-  #     file: ./ca-base-shop.yaml
-  #     service: ca-base
-  #   image: shop-ca
-  #   ports:
-  #   - 8054:7054
-
-#  repairshop-ca:
-#    container_name: repairshop-ca
-#    extends:
-#      file: ./ca-base.yaml
-#      service: ca-base
-#    image: repairshop-ca
-#    ports:
-#    - 9054:7054
-
-#  police-ca:
-#    container_name: police-ca
-#    extends:
-#      file: ./ca-base.yaml
-#      service: ca-base
-#    image: police-ca
-#    ports:
-#    - 10054:7054
+  shop-ca:
+    container_name: shop-ca
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=shop-ca
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/key.pem
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start -b insuranceApp-admin:insuranceApp-adminpw -d'
+    
+    volumes:  
+      - ./shopCA/ca/:/etc/hyperledger/fabric-ca-server-config 
+    networks:
+      - hyperlink
 
   orderer0:
     container_name: orderer0
@@ -55,6 +55,8 @@ services:
     command: orderer
     ports:
     - 7050:7050
+    networks:
+      - hyperlink
 
   insurance-peer:
     container_name: insurance-peer
@@ -72,6 +74,8 @@ services:
     - 7053:7053
     depends_on:
     - orderer0
+    networks:
+      - hyperlink
 
   shop-peer:
     container_name: shop-peer
@@ -90,62 +94,51 @@ services:
     depends_on:
     - orderer0
     - insurance-peer
+    networks:
+      - hyperlink
+      
+  cli:
+   container_name: cli
+   image: hyperledger/fabric-tools
+   tty: true
+   environment:
+    - GOPATH=/opt/gopath
+    - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+    - FABRIC_LOGGING_SPEC=INFO
+    - CORE_PEER_ID=cli
+    - CORE_PEER_ADDRESS=insurance-peer:7051
+    - CORE_PEER_LOCALMSPID=InsuranceOrgMSP
+    - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/insurnace-org/users/Admin@insurance-org/msp
+    - CORE_CHAINCODE_KEEPALIVE=10
+   working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+   command: /bin/bash
+   volumes:
+    - /var/run/:/host/var/run/
+    - ./web/chaincode/:/opt/gopath/src/chaincode/
+    - ./cli/peer:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+    - ./cli/peer:/etc/hyperledger/configtx
+   networks:
+    - hyperlink
 
-#  repairshop-peer:
-#    container_name: repairshop-peer
-#    extends:
-#      file: ./peer-base.yaml
-#      service: peer-base
-#    image: repairshop-peer
-#    environment:
-#    - CORE_PEER_ID=repairshop-peer
-#    - CORE_PEER_ADDRESS=repairshop-peer:7051
-#    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=repairshop-peer:7051
-#    - CORE_PEER_LOCALMSPID=RepairShopOrgMSP
-#    ports:
-#    - 9051:7051
-#    - 9053:7053
-#    depends_on:
-#    - orderer0
-#    - insurance-peer
-#    - shop-peer
 
-#  police-peer:
-#    container_name: police-peer
-#    extends:
-#      file: ./peer-base.yaml
-#      service: peer-base
-#    image: police-peer
-#    environment:
-#    - CORE_PEER_ID=police-peer
-#    - CORE_PEER_ADDRESS=police-peer:7051
-#    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=police-peer:7051
-#    - CORE_PEER_LOCALMSPID=PoliceOrgMSP
-#    ports:
-#    - 10051:7051
-#    - 10053:7053
-#    depends_on:
-#    - orderer0
-#    - insurance-peer
-#    - shop-peer
-#    - repairshop-peer
-
-  # web:
-  #   container_name: web
-  #   image: web
-  #   environment:
-  #   - PORT=3000
-  #   - DOCKER_SOCKET_PATH=/host/var/run/docker.sock
-  #   - DOCKER_CCENV_IMAGE=hyperledger/fabric-ccenv:latest
-  #   ports:
-  #   - 3000:3000
-  #   volumes:
-  #   - /var/run/:/host/var/run/
-  #   depends_on:
-  #   - orderer0
-  #   - insurance-ca
-  #   - insurance-peer
-  #   - shop-ca
-  #   - shop-peer
-#    - repairshop-ca
-#    - repairshop-peer
+  web:
+    container_name: web
+    image: web
+    environment:
+    - PORT=3000
+    - DOCKER_SOCKET_PATH=/host/var/run/docker.sock
+    - DOCKER_CCENV_IMAGE=hyperledger/fabric-ccenv:latest
+    ports:
+    - 3000:3000
+    volumes:
+    - /var/run/:/host/var/run/
+    depends_on:
+    - orderer0
+    - insurance-ca
+    - insurance-peer
+    - shop-ca
+    - shop-peer
+    stdin_open: true
+    tty: true
+    networks:
+    - hyperlink

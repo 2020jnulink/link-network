@@ -37,7 +37,7 @@
                     "shop-ca"
                 ],
                 "adminPrivateKey": {
-                    "path":"../../../cli/peers/peerOrganizations/shop-org/users/Admin@shop-org/msp/keystore/3284f663fa1e24f76b8f554579d22a35aab5ddbda6011397684cb65f3d49f492_sk"
+                    "path":"../../../cli/peers/peerOrganizations/shop-org/users/Admin@shop-org/msp/keystore/3862378fbb55683af2ba6f40333462c003a6b8ced88ce5e9429e8fb66bda051f_sk"
                 },
                 "signedCert":{
                     "path":"../../../cli/peers/peerOrganizations/shop-org/users/Admin@shop-org/msp/signcerts/Admin@shop-org-cert.pem"

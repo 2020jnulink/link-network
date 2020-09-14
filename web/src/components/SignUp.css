@@ -38,6 +38,22 @@
   margin-top: 30px;
 }
 
+.signup_main__input {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-top: 75px;
+}
+.signup_input__name,
+.signup_input__id,
+.signup_input__password,
+.signup_input__resident,
+.signup_input__address,
+.signup_input__phone {
+  height: 50px;
+  margin-bottom: 15px;
+}
+
 .signup_complete {
   margin-top: 150px;
   margin-right: 50px;

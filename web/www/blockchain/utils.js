@@ -22,6 +22,7 @@ import {
   snakeToCamelCase,
   camelToSnakeCase
 } from 'json-style-converter';
+import e from 'express';
 
 process.env.GOPATH = resolve(__dirname, '../../chaincode');
 const JOIN_TIMEOUT = 120000,
@@ -431,14 +432,20 @@ async function getSubmitter(
     const ca = new CAClient(url, {
       verify: false
     });
+    
     try {
+      console.log(enrollmentID, enrollmentSecret)
       const enrollment = await ca.enroll({
         enrollmentID,
         enrollmentSecret
       });
+      console.log("@2");
       user = new User(enrollmentID, client);
+      console.log("@2");
       await user.setEnrollment(enrollment.key, enrollment.certificate, mspId);
+      console.log("@2");
       await client.setUserContext(user);
+      console.log("@2");
       return user;
     } catch (e) {
       throw new Error(

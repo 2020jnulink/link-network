@@ -24,6 +24,22 @@
   margin-top: 30px;
 }
 
+.join_main__input {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-top: 75px;
+}
+.join_input__insurance,
+.join_input__name,
+.join_input__address,
+.join_input__phone,
+.join_input__period,
+.join_input__price {
+  height: 50px;
+  margin-bottom: 15px;
+}
+
 .join_complete {
   margin-top: 150px;
   margin-right: 50px;

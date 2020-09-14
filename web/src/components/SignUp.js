@@ -4,7 +4,29 @@ import Navigation_var from "./Navigation_var";
 import "./SignUp.css";
 
 class SignUp extends React.Component {
+  state = {
+    signup_name: "",
+    signup_id: "",
+    signup_password: "",
+    signup_resident: "",
+    signup_address: "",
+    signup_phone: "",
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.targetname]: e.target.value,
+    });
+    console.log(this.state);
+  };
   render() {
+    const {
+      signup_name,
+      signup_id,
+      signup_password,
+      signup_resident,
+      signup_address,
+      signup_phone,
+    } = this.state;
     return (
       <div className="frame">
         <body>
@@ -36,12 +58,36 @@ class SignUp extends React.Component {
                 <div className="signup_var__var">:</div>
               </div>
               <div className="signup_main__input">
-                <div className="signup_input__name" />
-                <div className="signup_input__id" />
-                <div className="signup_input__password" />
-                <div className="signup_input__resident" />
-                <div className="signup_input__address" />
-                <div className="signup_input__phone" />
+                <input
+                  className="signup_input__name"
+                  value={this.state.signup_name}
+                  onChange={this.handleChange}
+                />
+                <input
+                  className="signup_input__id"
+                  value={this.state.signup_id}
+                  onChange={this.handleChange}
+                />
+                <input
+                  className="signup_input__password"
+                  value={this.state.signup_password}
+                  onChange={this.handleChange}
+                />
+                <input
+                  className="signup_input__resident"
+                  value={this.state.signup_resident}
+                  onChange={this.handleChange}
+                />
+                <input
+                  className="signup_input__address"
+                  value={this.state.signup_address}
+                  onChange={this.handleChange}
+                />
+                <input
+                  className="signup_input__phone"
+                  value={this.state.signup_phone}
+                  onChange={this.handleChange}
+                />
               </div>
             </div>
             <div className="signup_complete">

@@ -21,6 +21,18 @@
   margin-top: 30px;
 }
 
+.login_main__input {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-top: 75px;
+}
+.login_input__id,
+.login_input__password {
+  height: 50px;
+  margin-bottom: 15px;
+}
+
 .login_btns {
   margin-top: 450px;
   display: flex;
